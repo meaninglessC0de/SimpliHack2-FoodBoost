@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Donation</title>
+        <link rel="stylesheet" href="donation.css" />
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+            integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+            crossorigin=""
+        />
+        <script
+            src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyA7SLxI-0yhjHvEp8Wpi-tiTegwzCfXUTw",
+                authDomain: "simplihacks2hackathon.firebaseapp.com",
+                projectId: "simplihacks2hackathon",
+                storageBucket: "simplihacks2hackathon.appspot.com",
+                messagingSenderId: "604114065700",
+                appId: "1:604114065700:web:a0e3690a996d20e5177bb1",
+            };
+            firebase.initializeApp(firebaseConfig);
+        </script>
+    </head>
+    <body>
+        <div class="toaster"></div>
+
+        <main class="wrapper">
+            <section class="section-form">
+                <h1>Donate Food / Clothes</h1>
+
+                <form name="signup" id="form" class="form" novalidate>
+                    <div class="form-group">
+                        <label for="name" class="form-label form-label--required"> Upload Pictures: </label>
+
+                        <div class="form-addon" data-states-for="name">
+                            <div class="form-addon__addon">
+                                <span class="icon-name"></span>
+                            </div>
+
+                            <input type="file" id="name" name="name" class="form-input" required />
+
+                            <span class="form-addon__icon icon-valid"></span>
+                            <span class="form-addon__icon icon-invalid"></span>
+                        </div>
+
+                        <div data-errors-for="name">
+                            <small class="form-error" data-errors-when="valueMissing"> This field is required. </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label form-label--required"> Latitude: </label>
+                        <div class="form-addon" data-states-for="email">
+                            <div class="form-addon__addon">
+                                <span class="icon-email"></span>
+                            </div>
+                            <input type="number" id="email" name="email" class="form-input" required />
+                            <span class="form-addon__icon icon-valid"></span>
+                            <span class="form-addon__icon icon-invalid"></span>
+                        </div>
+
+                        <div data-errors-for="email">
+                            <small class="form-error" data-errors-when="valueMissing"> This field is required. </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="form-label form-label--required"> Longitude: </label>
+
+                        <div class="form-addon" data-states-for="phone">
+                            <div class="form-addon__addon">
+                                <span class="icon-phone"></span>
+                            </div>
+
+                            <input type="number" id="phone" name="phone" class="form-input" required />
+
+                            <span class="form-addon__icon icon-valid"></span>
+                            <span class="form-addon__icon icon-invalid"></span>
+                        </div>
+                        <div data-errors-for="email">
+                            <small class="form-error" data-errors-when="valueMissing"> This field is required. </small>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="map"></div>
+                    <br />
+                    <div class="form-footer">
+                        <button type="submit" id="submit" class="button">Donate</button>
+                    </div>
+                </form>
+            </section>
+            <div id="topRight">
+                <canvas id="canvas" width="250" height="250"></canvas>
+                <div id="labelContainer"></div>
+            </div>
+        </main>
+        <script src="donation.js" defer></script>
+    </body>
+</html>
