@@ -1,0 +1,171 @@
+#: import MapView kivy.garden.mapview.MapView
+
+<MainScreen>:
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols:1
+        spacing:5
+        size_hint_y:1
+        id: grids
+        GridLayout:
+            id: box
+            cols:2
+            size_hint_y: None
+            height:30
+            pos_hint: {'center_x':  0.5, 'center_y':0.8}
+            TextInput: 
+                id: ti
+                hint_text: 'Search'
+                size_hint: 1, 0.05
+                text_size: self.width, self.height
+                background_normal: ''
+                cursor_color: [0,0,0,0]
+            Button:
+                size_hint_x: 0.1
+                on_press: 
+                on_release: root.refresh(root.ids.ti.text)  
+                background_normal: ''    
+                Image:
+                    source: 'search.png'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y   
+                    allow_stretch: True
+                    size: self.parent.width, self.parent.height
+    BoxLayout:
+        Button:
+            text: '+'
+            pos:0,0
+            size_hint_x: 1
+            size_hint_y: None
+            height: 40
+            on_press: root.add_object()
+            background_color: (235/255,133/255, 122/255, 1)
+            background_normal: ''
+
+
+<RoundedButton@Button>
+    background_color: (0,0,0,0)
+    on_press: self.last_clicked_button = self.text 
+    on_release: self.which_clicked()
+    canvas.before:
+        Color:
+            rgba: (136/255,222/255, 122/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [10]
+
+<MapViewer>:
+    GridLayout:
+        cols: 1
+        MapView:
+            id: maps
+            zoom:12
+        Button:
+            size_hint_y: 0.1
+            background_color: (136/255,222/255, 122/255, 1)
+            text: 'Return'
+            background_normal: ''
+            on_press: root.return_to_main()
+
+<DonateScreen>:
+    spacing:10
+    padding:10
+    canvas.before:
+        Color:
+            rgba: (245/255,245/255,245/255,245/255)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        spacing:10
+        padding:10
+        size_hint_y: 1
+        BackgroundLabel:
+            text: 'Donation Form'
+            size_hint_y: 0.05
+            height:20
+            background_color: (1,0,0,1)
+        TextInput:
+            id: types
+            hint_text: 'Enter type of object you are donating'
+            size_hint: 1, 0.1
+            text_size: self.width, self.height
+            background_normal: ''
+            cursor_color: [0,0,0,0]
+        TextInput:
+            id: spectype
+            hint_text: 'Enter specifically what you are donating'
+            size_hint: 1, 0.2
+            text_size: self.width, self.height
+            background_normal: ''
+            cursor_color: [0,0,0,0]
+        TextInput:
+            id: lats
+            hint_text: 'Enter latitude of your address'
+            size_hint: 1, 0.2
+            text_size: self.width, self.height
+            background_normal: ''
+            cursor_color: [0,0,0,0] 
+        TextInput:
+            id: longs
+            hint_text: 'Enter longitude of your address'
+            size_hint: 1, 0.2
+            text_size: self.width, self.height
+            background_normal: ''
+            cursor_color: [0,0,0,0]   
+        Button:
+            text: 'Submit'
+            background_color: (0,0,0,0) 
+            size_hint_y: 0.2
+            height: 40
+            on_press: root.transfer_data(root.ids.types.text,root.ids.spectype.text,root.ids.lats.text,root.ids.longs.text )
+            canvas.before:
+                Color:
+                    rgba: (136/255,222/255, 122/255, 1)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [10]
+        Label:
+            size_hint_y:0.1
+            text:'_____________________'
+    BoxLayout:
+        Button:
+            text: '-->'
+            pos:0,0
+            size_hint_x: 1
+            size_hint_y: None
+            height: 40
+            on_press: root.returns()
+            background_color: (136/255,222/255, 122/255, 1)
+            background_normal: ''
+
+<BackgroundColor@Widget>
+    background_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+<BackgroundLabel@Label+BackgroundColor>
+    background_color: 0, 0, 0, 0
+            
+
+    
+
+
+<RootWidget>:
+    MainScreen:
+        name: "main_screen"
+    MapViewer:
+        name: "map_viewer"
+    DonateScreen:
+        name: "donate_screen"
